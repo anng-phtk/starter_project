@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
+const apiRoutes = require('./routes'); // Import the default index.js module from routes
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,11 +16,15 @@ app.use(expressLayouts); // Use the middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Home route (static HTML)
-app.get('/', (req, res) => {
-  console.log("serving")
-  res.sendFile(path.join(__dirname, '../public/index.html'));
-});
+// mount all routes
+app.use('/api/v1', apiRoutes);
+
+
+
+
+
+// example code to verify everything is working
+// ---------------------------------------------
 
 // Dynamic route (EJS)
 app.get('/dynamic', (req, res) => {
@@ -32,6 +37,16 @@ app.get('/dynamic', (req, res) => {
   // Render the EJS template with data
   res.render('dynamic', data);
 });
+
+// Home route (static HTML)
+app.get('/', (req, res) => {
+  console.log("serving")
+  res.sendFile(path.join(__dirname, '../public/index.html'));
+});
+
+// ---------------------------------------------
+
+
 
 // Serve static files (moved after routes)
 app.use(express.static(path.join(__dirname, './src/public')));
