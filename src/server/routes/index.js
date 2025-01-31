@@ -1,7 +1,9 @@
-const express = require('express');
-const cikRoutes = require('./CIKRoutes');
+import express from 'express';
+import cikRoutes from './CIKRoutes.js';
 
 const router = express.Router();
 
 router.use('/cik', cikRoutes); // Mount the cikRoutes under /cik
-module.exports = router;
+
+
+export default router;

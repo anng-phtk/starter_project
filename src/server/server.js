@@ -1,10 +1,16 @@
-const express = require('express');
-const path = require('path');
-const expressLayouts = require('express-ejs-layouts');
-const apiRoutes = require('./routes'); // Import the default index.js module from routes
+import express from 'express';
+import path from 'node:path';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import expressLayouts from 'express-ejs-layouts';
+import apiRoutes from './routes/index.js';
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Set EJS as the templating engine
 app.set('view engine', 'ejs');
